@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>Neon Drift</title>
+  <meta name="description" content="Dodge the walls, chase the orbs, charge overdrive and smash through a neon tunnel.">
+  <meta name="theme-color" content="#04000e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="vignette"></div>
+  <div id="flash"></div>
+  <div id="popups"></div>
+
+  <header id="hud">
+    <div class="block">
+      <div class="label">SCORE</div>
+      <div id="score" class="score">0</div>
+      <div class="row">
+        <span id="mult" class="chip">x1</span>
+        <span id="streak" class="sub"></span>
+      </div>
+    </div>
+    <div class="block right">
+      <div id="zone" class="chip">ZONE 1 · NEON CITY</div>
+      <div class="row">
+        <span class="label">BEST</span>
+        <span id="best" class="val">0</span>
+      </div>
+      <div id="speed" class="sub">0 KM/H</div>
+      <button id="sound" type="button">SOUND ON</button>
+    </div>
+  </header>
+
+  <div id="meter" aria-label="Overdrive charge">
+    <div id="meter-fill"></div>
+    <span id="meter-label">OVERDRIVE</span>
+  </div>
+
+  <section id="title" class="overlay show">
+    <div class="card">
+      <p class="kicker">ARCADE · 3D · OVERDRIVE</p>
+      <h1>NEON<br>DRIFT</h1>
+      <p class="tag">Dodge the walls. Chase the orbs. Charge overdrive and smash through everything.</p>
+      <ul class="keys">
+        <li><b>STEER</b>pointer, finger, or arrows / WASD</li>
+        <li><b>OVERDRIVE</b>tap or Space once the bar is full</li>
+        <li><b>STREAK</b>grab orbs back to back for a bigger multiplier</li>
+        <li><b>SOUND</b>press M to toggle</li>
+      </ul>
+      <p class="cta">Tap or press Space to play</p>
+    </div>
+  </section>
+
+  <section id="over" class="overlay">
+    <div class="card">
+      <p class="kicker">SIGNAL LOST</p>
+      <h2>CRASHED</h2>
+      <div class="stat"><span>SCORE</span><b id="over-score">0</b></div>
+      <div class="stat"><span>BEST</span><b id="over-best">0</b></div>
+      <p id="over-new" class="new" hidden>NEW BEST!</p>
+      <p class="cta">Tap or press Space to fly again</p>
+    </div>
+  </section>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
