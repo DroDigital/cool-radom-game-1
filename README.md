@@ -1,47 +1,44 @@
-# SHATTERSPIRE
+# Neon Drift
 
-A 3D action-ARPG roguelite that runs in any modern browser. Descend a floating spire of ash, glass, storm and root, bind boons to your blade, and break the four wardens guarding its heart.
+A fast, no-build 3D arcade runner in the browser, built with Three.js. Dodge the walls, chase the orbs, charge overdrive and smash straight through everything.
 
 ## Play
 
-Open `index.html` in Chrome, Edge, Firefox or Safari. There is no build step and no server: the game is one file and loads Three.js r186.1 from a pinned jsDelivr URL.
+Serve the folder with any static server (WebGL is required) and open it:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000. There is nothing to install or build: Three.js 0.160.0 is loaded from jsDelivr through the import map in `index.html`.
 
 ## Controls
 
-| Input | Action |
+| Action | Input |
 | --- | --- |
-| WASD / arrows | Move |
-| Mouse | Aim (the character faces the cursor) |
-| LMB (hold) | Weapon combo / bolt |
-| RMB | Weapon special (Earthbreaker, Shadow Lunge, Chain Nova) |
-| Space | Dodge with i-frames |
-| Q | Healing flask (refilled by clearing rooms) |
-| E | Ultimate, once Fury reaches 100 (Sunder, Death Dance, Tempest) |
-| 1 / 2 / 3 | Swap weapons (more are found in chests and bosses) |
-| Mouse wheel | Zoom |
-| Esc | Pause |
-| M | Mute |
+| Steer | Move the pointer or finger, or use the arrow keys / WASD |
+| Overdrive | Tap or press Space once the meter is full |
+| Mute / unmute | `M` or the SOUND button |
 
-## What is in it
+## How it plays
 
-- **Three weapons** with different feel: Greatblade (heavy combo, stagger), Fangs (fast flurry, bleed lunge), Stormstaff (homing bolts, chain lightning).
-- **Four floors**, each a floating-island arena in its own biome (Ashen Gardens, Glass Cathedral, Storm Ruins, Void Roots), with its own palette, fog, sky, props and music loop.
-- **Varied room loop**: skirmishes, elite hunts, shrines (pick one of three boons), treasure chests and warden chambers. Some rooms add modifiers: Storm, Frenzy or Molten.
-- **Boons** that change the rules of a run: burn on hit, dodge gusts, chain lightning, reflect damage, echo strikes, frost aura, second wind and more.
-- **Loot** with rarity and affixes (damage, crit, lifesteal, speed, cooldown, Fury gain), auto-equipped when it beats your current gear.
-- **Four wardens**, each with telegraphed attack patterns and phase changes: the Ashen Warden, Glass Colossus, Stormcaller Ilse and The Shattered King.
-- **Art without assets**: low-poly flat-shaded geometry, procedural ground textures, emissive crystals with bloom, ambient ember motes, a camera with shake and hit-stop, and procedural WebAudio sound effects and music.
+- **Orbs** fill the overdrive meter and build a streak. Every 5 orbs in a row raises the multiplier, up to x8.
+- **Overdrive** lasts 5.5 seconds. Walls shatter instead of crashing you, the score doubles, and nearby orbs are pulled toward you.
+- **CLOSE!** bonus: threading a hole right at its edge scores extra and charges the meter.
+- **Crystals** give a big charge boost.
+- The palette shifts every 700 units of distance: NEON CITY, SUNSET STRIP, ACID GRID, NEBULA DRIVE.
+- The best score is saved in `localStorage`.
 
-## Code layout
+## Layout
 
-Everything lives in `index.html`, in this order:
+- `index.html`: page shell, HUD and overlays, import map
+- `css/style.css`: HUD and overlay styling
+- `js/main.js`: renderer, bloom post-processing, game state, scoring, input
+- `js/world.js`: neon frame tunnel, rails, starfield and sun
+- `js/track.js`: wall patterns, orbs, crystals and collision rules
+- `js/player.js`: ship model
+- `js/fx.js`: particles, shattering walls and popups
+- `js/audio.js`: procedural WebAudio sound effects and music
+- `js/config.js`: tuning constants and colour palettes
 
-1. Markup, CSS and the import map (`three@0.186.1` from jsDelivr).
-2. Engine setup, biome palettes, procedural textures, arena and prop builders, lights and sky.
-3. Particles, damage numbers, audio, input, weapons and the player controller.
-4. Enemies, warden patterns, hazards, projectiles, pickups and the damage pipeline.
-5. Items and boons, floor and room flow, HUD, game loop and wiring.
-
-## Debugging
-
-`window.SHATTERSPIRE` exposes the player, the run state, the enemy list, and two helpers: `killAll()` clears the current wave, and `sim(seconds)` steps gameplay at 60 Hz without rendering, which is handy for headless tests.
+`window.neonDrift` is exposed in the console as a debugging handle (state, track, camera and ship).
